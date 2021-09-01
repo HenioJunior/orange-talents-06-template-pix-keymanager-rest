@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "KeymanagerRest";
+
+package com.zupacademy.henio;
+
+service KeymanagerRegistraGrpcService {
+  rpc registra (RegistraChavePixRequest) returns (RegistraChavePixResponse) {}
+}
+
+enum TipoDeChave {
+  UNKNOWN_TIPO_CHAVE = 0;
+  CPF = 1;
+  PHONE = 2;
+  EMAIL = 3;
+  RANDOM = 4;
+}
+
+enum TipoDeConta {
+  UNKNOWN_TIPO_CONTA = 0;
+  CONTA_CORRENTE = 1;
+  CONTA_POUPANCA = 2;
+}
+
+//Registra Chave
+message RegistraChavePixRequest {
+  string clienteId = 1;
+  TipoDeChave tipoDeChave = 2;
+  string chave = 3;
+  TipoDeConta tipoDeConta = 4;
+}
+
+message RegistraChavePixResponse {
+  string clienteId = 1;
+  string pixId = 2;
+}
