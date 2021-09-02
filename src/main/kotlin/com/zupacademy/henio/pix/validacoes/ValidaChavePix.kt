@@ -1,6 +1,6 @@
 package com.zupacademy.henio.pix.validacoes
 
-import com.zupacademy.henio.keymanager.registra.NovaChavePixRequest
+import com.zupacademy.henio.pix.registra.NovaChavePixRequest
 import io.micronaut.core.annotation.AnnotationValue
 import io.micronaut.validation.validator.constraints.*
 import javax.inject.Singleton
@@ -12,19 +12,19 @@ import kotlin.reflect.KClass
 @MustBeDocumented
 @Target(CLASS, TYPE)
 @Retention(AnnotationRetention.RUNTIME)
-@Constraint(validatedBy = [ValidPixKeyValidator::class])
-annotation class ValidPixKey(
+@Constraint(validatedBy = [ValidaChavePixValidator::class])
+annotation class ValidaChavePix(
     val message: String = "chave Pix inválida (\${validatedValue.tipo})",
     val groupds: Array<KClass<Any>> = [],
     val payload: Array<KClass<Payload>> = []
 )
 
 @Singleton
-class ValidPixKeyValidator: ConstraintValidator<ValidPixKey, NovaChavePixRequest> {
+class ValidaChavePixValidator: ConstraintValidator<ValidaChavePix, NovaChavePixRequest> {
 
     override fun isValid(
         value: NovaChavePixRequest?,
-        annotationMetadata: AnnotationValue<ValidPixKey>,
+        annotationMetadata: AnnotationValue<ValidaChavePix>,
         context: ConstraintValidatorContext
     ): Boolean {
 

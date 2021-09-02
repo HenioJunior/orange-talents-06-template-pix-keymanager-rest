@@ -1,9 +1,8 @@
-package com.zupacademy.henio.keymanager.registra
+package com.zupacademy.henio.pix.registra
 
-import com.zupacademy.henio.KeymanagerRegistraGrpcServiceGrpc
+import com.zupacademy.henio.pix.grpc.KeymanagerRegistraGrpcServiceGrpc
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpResponse.created
-import io.micronaut.http.HttpResponse.uri
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post

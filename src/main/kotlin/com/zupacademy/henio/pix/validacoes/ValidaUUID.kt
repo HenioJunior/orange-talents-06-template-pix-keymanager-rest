@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
     flags = [CASE_INSENSITIVE])
 @Retention(RUNTIME)
 @Target(FIELD, CONSTRUCTOR, PROPERTY, VALUE_PARAMETER)
-annotation class ValidUUID (
+annotation class ValidaUUID (
     val message: String = "não é um UUID válido",
     val groups: Array<KClass<Any>> = [],
     val payload: Array<KClass<Payload>> = []

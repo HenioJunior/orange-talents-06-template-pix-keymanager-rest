@@ -1,10 +1,10 @@
-package com.zupacademy.henio.keymanager.registra
+package com.zupacademy.henio.pix.registra
 
-import com.zupacademy.henio.RegistraChavePixRequest
-import com.zupacademy.henio.TipoChave
-import com.zupacademy.henio.TipoConta
-import com.zupacademy.henio.pix.validacoes.ValidPixKey
-import com.zupacademy.henio.pix.validacoes.ValidUUID
+import com.zupacademy.henio.pix.grpc.RegistraChavePixRequest
+import com.zupacademy.henio.pix.grpc.TipoChave
+import com.zupacademy.henio.pix.grpc.TipoConta
+import com.zupacademy.henio.pix.validacoes.ValidaChavePix
+import com.zupacademy.henio.pix.validacoes.ValidaUUID
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator
@@ -12,7 +12,7 @@ import java.util.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-@ValidPixKey
+@ValidaChavePix
 @Introspected
 class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
                           @field:NotNull val tipoDeConta: TipoDeContaRequest?,
@@ -20,7 +20,7 @@ class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
 
                           ) {
 
-    fun paraModeloGrpc(@ValidUUID clienteId: UUID): RegistraChavePixRequest {
+    fun paraModeloGrpc(@ValidaUUID clienteId: UUID): RegistraChavePixRequest {
         return RegistraChavePixRequest.newBuilder()
             .setClienteId(clienteId.toString())
             .setTipoConta(tipoDeConta?.atributoGrpc ?: TipoConta.UNKNOWN_TIPO_CONTA)
@@ -45,7 +45,7 @@ enum class TipoDeChaveRequest(val atributoGrpc: TipoChave) {
         }
     },
 
-    PHONE(TipoChave.PHONE) {
+    PHONE(TipoChave.CELULAR) {
         override fun valida(chave: String?): Boolean {
 
             if (chave.isNullOrBlank()) {

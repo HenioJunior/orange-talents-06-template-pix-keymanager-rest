@@ -1,4 +1,4 @@
-package com.zupacademy.henio
+package com.zupacademy.henio.pix
 import io.micronaut.runtime.EmbeddedApplication
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
 @MicronautTest
-class KeymanagerRestTest {
+class RegistraChaveTest {
 
     @Inject
     lateinit var application: EmbeddedApplication<*>
