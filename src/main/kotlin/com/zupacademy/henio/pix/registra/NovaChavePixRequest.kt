@@ -14,7 +14,7 @@ import javax.validation.constraints.Size
 
 @ValidaChavePix
 @Introspected
-class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
+data class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
                           @field:NotNull val tipoDeConta: TipoDeContaRequest?,
                           @field:Size(max=77) val chave: String?,
 
@@ -29,7 +29,13 @@ class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
             .build()
 
     }
+
+    override fun toString(): String {
+        return "NovaChavePixRequest(tipoDeChave=$tipoDeChave, tipoDeConta=$tipoDeConta, chave=$chave)"
     }
+
+
+}
 
 enum class TipoDeChaveRequest(val atributoGrpc: TipoChave) {
 
