@@ -15,10 +15,8 @@ import javax.validation.constraints.Size
 @ValidaChavePix
 @Introspected
 data class NovaChavePixRequest(@field:NotNull val tipoDeChave: TipoDeChaveRequest?,
-                          @field:NotNull val tipoDeConta: TipoDeContaRequest?,
-                          @field:Size(max=77) val chave: String?,
-
-                          ) {
+                               @field:NotNull val tipoDeConta: TipoDeContaRequest?,
+                               @field:Size(max=77) val chave: String?) {
 
     fun paraModeloGrpc(@ValidaUUID clienteId: UUID): RegistraChavePixRequest {
         return RegistraChavePixRequest.newBuilder()

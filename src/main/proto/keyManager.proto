@@ -86,7 +86,7 @@ message CarregaChavePixResponse {
     TipoChave tipoChave = 1;
     string chave = 2;
     ContaInfo conta = 3;
-    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp criadaEm = 4;
   }
 
   string clienteId = 1;
@@ -110,7 +110,7 @@ message ListaChavePixResponse {
     TipoChave tipoChave = 2;
     string chave = 3;
     TipoConta tipoConta = 4;
-    google.protobuf.Timestamp createdAt = 5;
+    google.protobuf.Timestamp criadaEm = 5;
   }
 
   string clienteId = 1;
