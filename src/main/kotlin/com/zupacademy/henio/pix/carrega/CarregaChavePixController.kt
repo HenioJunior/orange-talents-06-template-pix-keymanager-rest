@@ -12,7 +12,6 @@ import java.util.*
 @Controller("/api/clientes/{clienteId}")
 class CarregaChavePixController(
     val carregaChavePixClient: KeymanagerCarregaGrpcServiceGrpc.KeymanagerCarregaGrpcServiceBlockingStub,
-    val listaChavesPixClient: KeymanagerListaGrpcServiceGrpc.KeymanagerListaGrpcServiceBlockingStub
 ) {
 
     private val LOGGER = LoggerFactory.getLogger(this::class.java)
@@ -31,10 +30,5 @@ class CarregaChavePixController(
             .build())
 
         return HttpResponse.ok(DetalheChavePixResponse(chaveResponse))
-
-
-
     }
-
-
 }

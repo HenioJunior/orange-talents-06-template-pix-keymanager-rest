@@ -23,8 +23,6 @@ class GlobalExceptionHandler : ExceptionHandler<StatusRuntimeException, HttpResp
             NOT_FOUND.code -> Pair(HttpStatus.NOT_FOUND, statusDescription)
             INVALID_ARGUMENT.code -> Pair(HttpStatus.BAD_REQUEST, "Dados inválidos")
             ALREADY_EXISTS.code -> Pair(HttpStatus.UNPROCESSABLE_ENTITY, statusDescription)
-            PERMISSION_DENIED.code -> Pair(HttpStatus.FORBIDDEN, statusDescription)
-            UNAVAILABLE.code -> Pair(HttpStatus.UNPROCESSABLE_ENTITY, statusDescription)
             else -> {
                 LOGGER.error("Erro inesperado '${exception.javaClass.name}' ao processar a requisição", exception)
                 Pair(HttpStatus.INTERNAL_SERVER_ERROR, "Não foi possível completar a requisição")
