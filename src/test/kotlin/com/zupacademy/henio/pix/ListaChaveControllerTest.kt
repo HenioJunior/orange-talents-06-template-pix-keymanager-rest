@@ -2,7 +2,10 @@ package com.zupacademy.henio.pix
 
 import com.google.protobuf.Timestamp
 import com.zupacademy.henio.pix.exceptions.GlobalExceptionHandler
-import com.zupacademy.henio.pix.grpc.*
+import com.zupacademy.henio.pix.grpc.CarregaChavePixResponse
+import com.zupacademy.henio.pix.grpc.KeymanagerCarregaGrpcServiceGrpc
+import com.zupacademy.henio.pix.grpc.TipoChave
+import com.zupacademy.henio.pix.grpc.TipoConta
 import com.zupacademy.henio.pix.shared.grpc.KeyManagerGrpcFactory
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
@@ -17,10 +20,8 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.mockito.BDDMockito
 import org.mockito.BDDMockito.given
 import org.mockito.Mockito
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -28,13 +29,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @MicronautTest
-internal class CarregaChaveControllerTest {
+internal class ListaChaveControllerTest {
 
     @field:Inject
     lateinit var carregaChaveStub: KeymanagerCarregaGrpcServiceGrpc.KeymanagerCarregaGrpcServiceBlockingStub
-
-    @field:Inject
-    lateinit var listaChaveStub: KeymanagerListaGrpcServiceGrpc.KeymanagerListaGrpcServiceBlockingStub
 
     @field:Inject
     @field:Client("/")
@@ -117,30 +115,12 @@ internal class CarregaChaveControllerTest {
         assertTrue((resposta.body() as JsonError).message.contains("INTERNAL"))
     }
 
-    @Test
-    internal fun `deve listar todas as chaves pix existente`() {
-
-       val respostaGrpc = listaChavePixResponse(clienteId)
-
-        given(listaChaveStub.lista(Mockito.any())).willReturn(respostaGrpc)
-
-        val request = HttpRequest.GET<Any>("/api/clientes/$clienteId/pix/")
-        val response = httpClient.toBlocking().exchange(request, List::class.java)
-
-        assertEquals(HttpStatus.OK, response.status)
-        assertNotNull(response.body())
-        assertEquals(response.body().size, 2)
-    }
-
     @Factory
     @Replaces(factory = KeyManagerGrpcFactory::class)
     internal class MockitoStubFactory {
 
         @Singleton
         fun stubCarregaMock() = Mockito.mock(KeymanagerCarregaGrpcServiceGrpc.KeymanagerCarregaGrpcServiceBlockingStub::class.java)
-
-        @Singleton
-        fun stubListaMock() = Mockito.mock(KeymanagerListaGrpcServiceGrpc.KeymanagerListaGrpcServiceBlockingStub::class.java)
     }
 
     private fun carregaChavePixResponse(clienteId: String, pixId: String) =
@@ -168,42 +148,5 @@ internal class CarregaChaveControllerTest {
                             .setNanos(createdAt.nano)
                             .build()
                     })).build()
-
-    private fun listaChavePixResponse(clienteId: String): ListaChavePixResponse {
-
-       val chaveEmail =  ListaChavePixResponse.ChavePix.newBuilder()
-            .setPixId(UUID.randomUUID().toString())
-            .setTipoChave(TIPO_DE_CHAVE_EMAIL)
-            .setChave(CHAVE_EMAIL)
-            .setTipoConta(CONTA_CORRENTE)
-            .setCriadaEm(CHAVE_CRIADA_EM.let {it ->
-                val createdAt = it.atZone(ZoneId.of("UTC")).toInstant()
-                Timestamp.newBuilder()
-                    .setSeconds(createdAt.epochSecond)
-                    .setNanos(createdAt.nano)
-                    .build()
-            })
-            .build()
-
-        val chaveCelular =  ListaChavePixResponse.ChavePix.newBuilder()
-            .setPixId(UUID.randomUUID().toString())
-            .setTipoChave(TIPO_DE_CHAVE_CELULAR)
-            .setChave(CHAVE_CELULAR)
-            .setTipoConta(CONTA_CORRENTE)
-            .setCriadaEm(CHAVE_CRIADA_EM.let {it ->
-                val createdAt = it.atZone(ZoneId.of("UTC")).toInstant()
-                Timestamp.newBuilder()
-                    .setSeconds(createdAt.epochSecond)
-                    .setNanos(createdAt.nano)
-                    .build()
-            })
-            .build()
-
-        return ListaChavePixResponse.newBuilder()
-            .setClienteId(clienteId)
-            .addAllChaves(listOf(chaveEmail, chaveCelular))
-            .build()
-    }
 }
-
 
