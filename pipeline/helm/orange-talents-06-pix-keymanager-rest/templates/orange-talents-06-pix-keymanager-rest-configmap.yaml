@@ -1,0 +1,6 @@
+kind: ConfigMap
+metadata:
+  name: orange-talents-06-pix-keymanager-rest-configmap
+data:
+  KEY_MANAGER_HOST: "http://localhost"
+  KEY_MANAGER_PORT: "50051"
