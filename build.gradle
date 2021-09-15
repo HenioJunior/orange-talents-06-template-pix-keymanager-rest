@@ -62,7 +62,7 @@ dependencies {
 
 
 application {
-    mainClass.set("br.com.zup.ApplicationKt")
+    mainClass.set("com.zupacademy.henio.pix.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")

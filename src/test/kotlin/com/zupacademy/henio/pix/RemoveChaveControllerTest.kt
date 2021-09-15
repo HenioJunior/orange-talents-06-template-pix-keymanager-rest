@@ -72,7 +72,7 @@ internal class RemoveChaveControllerTest {
     }
 
     @Test
-    fun `deve retornar 403 quando o cliente nao eh dono da chave`() {
+    fun `deve retornar 403 quando o cliente nao e dono da chave`() {
 
         val mensagem = "Cliente não é dono da chave"
         val excecao = StatusRuntimeException(

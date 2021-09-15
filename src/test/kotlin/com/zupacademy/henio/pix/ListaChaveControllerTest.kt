@@ -112,7 +112,7 @@ internal class ListaChaveControllerTest {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, resposta.status)
         assertNotNull(resposta.body())
-        assertTrue((resposta.body() as JsonError).message.contains("INTERNAL"))
+        assertTrue((resposta.body() as JsonError).message.contains("Não foi possível completar a requisição"))
     }
 
     @Factory
